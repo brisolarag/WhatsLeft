@@ -1,0 +1,536 @@
+.dashboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Month Navigator Header */
+.month-navigator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  margin-bottom: 8px;
+}
+
+.current-month-heading {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+  min-width: 220px;
+  letter-spacing: -0.02em;
+}
+
+.nav-arrow-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-secondary);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+
+  &:hover {
+    color: var(--text-primary);
+    border-color: var(--text-muted);
+    background-color: var(--bg-primary);
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.arrow-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Top Dashboard Layout Grid */
+.top-dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 32px;
+}
+
+.metrics-column {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Card Titles */
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.card-title-lg {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+
+/* 1. Spends & Income Chart Card */
+.chart-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 28px 24px;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chart-legend {
+  display: flex;
+  gap: 24px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-color {
+  width: 14px;
+  height: 8px;
+  border-radius: 99px;
+  display: inline-block;
+
+  &.legend-income {
+    background-color: var(--color-income);
+  }
+
+  &.legend-spends {
+    background-color: var(--color-spends);
+  }
+}
+
+.legend-text {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.svg-chart-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  min-height: 220px;
+}
+
+.vector-chart {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Grid & Text Vector lines */
+.grid-line-horizontal {
+  stroke: rgba(226, 232, 240, 0.7);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+.axis-text {
+  font-family: inherit;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  fill: var(--text-muted);
+
+  &.axis-y-text {
+    text-anchor: end;
+  }
+
+  &.axis-x-text {
+    text-anchor: middle;
+  }
+}
+
+/* Chart lines styles */
+.vector-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawLine 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+
+  &.line-income {
+    stroke: var(--color-income);
+    filter: drop-shadow(0px 4px 10px rgba(60, 163, 136, 0.15));
+  }
+
+  &.line-spends {
+    stroke: var(--color-spends);
+    filter: drop-shadow(0px 4px 10px rgba(224, 122, 95, 0.15));
+  }
+}
+
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.chart-point {
+  animation: scalePoint 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation-delay: 1.2s;
+  opacity: 0;
+  transform-origin: center;
+}
+
+@keyframes scalePoint {
+  to {
+    opacity: 1;
+  }
+}
+
+/* 2. Net Remaining Balance Card */
+.remaining-card {
+  padding: 24px;
+  background-color: var(--bg-card);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.remaining-heading {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.progress-rings-row {
+  display: flex;
+  gap: 20px;
+}
+
+.ring-col {
+  flex: 1;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all var(--transition-fast);
+
+  &:hover {
+    border-color: var(--text-muted);
+    background-color: #ffffff;
+  }
+}
+
+.ring-data {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ring-title {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.ring-value {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.ring-svg-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.gauge-ring {
+  display: block;
+}
+
+/* 3. Spending Forecast Card */
+.forecast-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  flex: 1;
+}
+
+.forecast-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.forecast-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+
+  th {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    vertical-align: middle;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+.date-col {
+  white-space: nowrap;
+  font-size: 0.78rem !important;
+}
+
+.amount-col {
+  color: var(--text-primary) !important;
+  white-space: nowrap;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.type-indicator {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.type-income-text {
+  color: var(--color-income);
+}
+
+.type-expense-text {
+  color: var(--color-spends);
+}
+
+.check-container {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.check-settled {
+    background-color: var(--bg-income-badge);
+    color: var(--color-income);
+  }
+
+  &.check-pending {
+    background-color: var(--bg-spends-badge);
+    color: var(--color-spends);
+  }
+}
+
+.check-svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* 4. Recent History Section Card */
+.history-card {
+  padding: 28px 24px;
+}
+
+.history-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+
+  th {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    padding: 12px 16px;
+    border-bottom: 1.5px solid var(--border-color);
+  }
+
+  td {
+    padding: 16px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.875rem;
+    vertical-align: middle;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+.identity-cell {
+  display: flex;
+  align-items: center;
+}
+
+.circle-icon-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 14px;
+  flex-shrink: 0;
+
+  &.icon-supermarket {
+    background-color: var(--bg-spends-badge);
+    color: var(--color-spends);
+  }
+
+  &.icon-uber {
+    background-color: var(--bg-income-badge);
+    color: var(--color-income);
+  }
+
+  &.icon-project {
+    background-color: var(--bg-invested-badge);
+    color: var(--color-invested);
+  }
+
+  &.icon-default {
+    background-color: #f1f5f9;
+    color: var(--text-secondary);
+  }
+}
+
+.avatar-svg {
+  width: 20px;
+  height: 20px;
+}
+
+.name-date-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.primary-description {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.formatted-timestamp {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.text-slate {
+  color: var(--text-secondary);
+}
+
+.category-col, .predicted-col {
+  font-size: 0.8125rem !important;
+}
+
+.settled-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.settled-val {
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.badge-status {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 99px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+
+  &.badge-income {
+    background-color: var(--bg-income-badge);
+    color: var(--color-income);
+  }
+
+  &.badge-expense {
+    background-color: var(--bg-spends-badge);
+    color: var(--color-spends);
+  }
+}
+
+/* Responsive Breakpoints Adaptability */
+@media (max-width: 1024px) {
+  .top-dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  .chart-card {
+    padding: 20px 14px;
+  }
+
+  .chart-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .progress-rings-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .history-table, .forecast-table {
+    th, td {
+      padding: 10px 8px;
+    }
+  }
+
+  .circle-icon-avatar {
+    margin-right: 8px;
+  }
+}

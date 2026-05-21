@@ -1,0 +1,683 @@
+[
+  {
+    "id": "t-jan-1",
+    "type": "INCOME",
+    "description": "Salary (Inc)",
+    "amount": 18000,
+    "expected": "2026-01-05T09:00:00.000Z",
+    "date": "2026-01-05T09:00:00.000Z",
+    "tags": ["salary", "job"]
+  },
+  {
+    "id": "t-jan-2",
+    "type": "INCOME",
+    "description": "Project Payment",
+    "amount": 4200,
+    "expected": "2026-01-18T14:30:00.000Z",
+    "date": "2026-01-18T16:00:00.000Z",
+    "tags": ["freelance", "project"]
+  },
+  {
+    "id": "t-jan-3",
+    "type": "OUTCOME",
+    "description": "Rent (Exp)",
+    "amount": 3500,
+    "expected": "2026-01-05T10:00:00.000Z",
+    "date": "2026-01-05T10:00:00.000Z",
+    "tags": ["housing", "rent"]
+  },
+  {
+    "id": "t-jan-4",
+    "type": "OUTCOME",
+    "description": "Supermarket Weekly",
+    "amount": 650,
+    "expected": "2026-01-10T11:00:00.000Z",
+    "date": "2026-01-10T11:30:00.000Z",
+    "tags": ["food", "groceries"]
+  },
+  {
+    "id": "t-jan-5",
+    "type": "OUTCOME",
+    "description": "Stocks Purchase",
+    "amount": 3000,
+    "expected": "2026-01-25T10:00:00.000Z",
+    "date": "2026-01-25T10:00:00.000Z",
+    "tags": ["investment", "stocks"]
+  },
+  {
+    "id": "t-jan-6",
+    "type": "OUTCOME",
+    "description": "Internet Bill",
+    "amount": 150,
+    "expected": "2026-01-22T09:00:00.000Z",
+    "date": "2026-01-22T09:00:00.000Z",
+    "tags": ["utilities", "internet"]
+  },
+  {
+    "id": "t-feb-1",
+    "type": "INCOME",
+    "description": "Salary (Inc)",
+    "amount": 18000,
+    "expected": "2026-02-05T09:00:00.000Z",
+    "date": "2026-02-05T09:00:00.000Z",
+    "tags": ["salary", "job"]
+  },
+  {
+    "id": "t-feb-2",
+    "type": "INCOME",
+    "description": "Consulting Fee",
+    "amount": 3500,
+    "expected": "2026-02-15T10:00:00.000Z",
+    "date": "2026-02-15T11:00:00.000Z",
+    "tags": ["consulting", "side-income"]
+  },
+  {
+    "id": "t-feb-3",
+    "type": "OUTCOME",
+    "description": "Rent (Exp)",
+    "amount": 3500,
+    "expected": "2026-02-05T10:00:00.000Z",
+    "date": "2026-02-05T10:00:00.000Z",
+    "tags": ["housing", "rent"]
+  },
+  {
+    "id": "t-feb-4",
+    "type": "OUTCOME",
+    "description": "Car Maintenance",
+    "amount": 1200,
+    "expected": "2026-02-12T14:00:00.000Z",
+    "date": "2026-02-12T15:30:00.000Z",
+    "tags": ["car", "transportation"]
+  },
+  {
+    "id": "t-feb-5",
+    "type": "OUTCOME",
+    "description": "Crypto Buy",
+    "amount": 2500,
+    "expected": "2026-02-20T10:00:00.000Z",
+    "date": "2026-02-20T10:00:00.000Z",
+    "tags": ["investment", "crypto"]
+  },
+  {
+    "id": "t-feb-6",
+    "type": "OUTCOME",
+    "description": "Electricity Bill",
+    "amount": 220,
+    "expected": "2026-02-25T09:00:00.000Z",
+    "date": "2026-02-25T09:00:00.000Z",
+    "tags": ["utilities", "power"]
+  },
+  {
+    "id": "t-mar-1",
+    "type": "INCOME",
+    "description": "Salary (Inc)",
+    "amount": 18500,
+    "expected": "2026-03-05T09:00:00.000Z",
+    "date": "2026-03-05T09:00:00.000Z",
+    "tags": ["salary", "job"]
+  },
+  {
+    "id": "t-mar-2",
+    "type": "INCOME",
+    "description": "Dividend Payment",
+    "amount": 1500,
+    "expected": "2026-03-10T12:00:00.000Z",
+    "date": "2026-03-10T12:00:00.000Z",
+    "tags": ["investment", "dividend"]
+  },
+  {
+    "id": "t-mar-3",
+    "type": "OUTCOME",
+    "description": "Rent (Exp)",
+    "amount": 3500,
+    "expected": "2026-03-05T10:00:00.000Z",
+    "date": "2026-03-05T10:00:00.000Z",
+    "tags": ["housing", "rent"]
+  },
+  {
+    "id": "t-mar-4",
+    "type": "OUTCOME",
+    "description": "New Office Chair",
+    "amount": 850,
+    "expected": "2026-03-08T11:00:00.000Z",
+    "date": "2026-03-08T14:00:00.000Z",
+    "tags": ["office", "shopping"]
+  },
+  {
+    "id": "t-mar-5",
+    "type": "OUTCOME",
+    "description": "Mutual Funds Buy",
+    "amount": 4000,
+    "expected": "2026-03-25T10:00:00.000Z",
+    "date": "2026-03-25T10:00:00.000Z",
+    "tags": ["investment", "funds"]
+  },
+  {
+    "id": "t-mar-6",
+    "type": "OUTCOME",
+    "description": "Water Bill",
+    "amount": 95,
+    "expected": "2026-03-22T09:00:00.000Z",
+    "date": "2026-03-22T09:00:00.000Z",
+    "tags": ["utilities", "water"]
+  },
+  {
+    "id": "t-apr-1",
+    "type": "INCOME",
+    "description": "Salary (Inc)",
+    "amount": 18500,
+    "expected": "2026-04-05T09:00:00.000Z",
+    "date": "2026-04-05T09:00:00.000Z",
+    "tags": ["salary", "job"]
+  },
+  {
+    "id": "t-apr-2",
+    "type": "INCOME",
+    "description": "Project Payment",
+    "amount": 6200,
+    "expected": "2026-04-20T14:30:00.000Z",
+    "date": "2026-04-20T16:00:00.000Z",
+    "tags": ["freelance", "project"]
+  },
+  {
+    "id": "t-apr-3",
+    "type": "OUTCOME",
+    "description": "Rent (Exp)",
+    "amount": 3500,
+    "expected": "2026-04-05T10:00:00.000Z",
+    "date": "2026-04-05T10:00:00.000Z",
+    "tags": ["housing", "rent"]
+  },
+  {
+    "id": "t-apr-4",
+    "type": "OUTCOME",
+    "description": "Supermarket Weekly",
+    "amount": 720,
+    "expected": "2026-04-12T11:00:00.000Z",
+    "date": "2026-04-12T11:30:00.000Z",
+    "tags": ["food", "groceries"]
+  },
+  {
+    "id": "t-apr-5",
+    "type": "OUTCOME",
+    "description": "Index Fund Purchase",
+    "amount": 4000,
+    "expected": "2026-04-25T10:00:00.000Z",
+    "date": "2026-04-25T10:00:00.000Z",
+    "tags": ["investment", "index-fund"]
+  },
+  {
+    "id": "t-apr-6",
+    "type": "OUTCOME",
+    "description": "Gym Membership",
+    "amount": 180,
+    "expected": "2026-04-03T09:00:00.000Z",
+    "date": "2026-04-03T09:00:00.000Z",
+    "tags": ["health", "sports"]
+  },
+  {
+    "id": "t-may-1",
+    "type": "INCOME",
+    "description": "Salary (Inc)",
+    "amount": 245423,
+    "expected": "2026-05-05T09:00:00.000Z",
+    "date": "2026-05-05T09:00:00.000Z",
+    "tags": ["salary", "job"]
+  },
+  {
+    "id": "t-may-2",
+    "type": "INCOME",
+    "description": "Project Payment",
+    "amount": 3200,
+    "expected": "2026-05-19T16:00:00.000Z",
+    "date": "2026-05-19T16:00:00.000Z",
+    "tags": ["freelance", "project"]
+  },
+  {
+    "id": "t-may-2-bonus",
+    "type": "INCOME",
+    "description": "Freelance Work",
+    "amount": 5000,
+    "expected": "2026-05-10T11:00:00.000Z",
+    "date": "2026-05-10T11:00:00.000Z",
+    "tags": ["freelance"]
+  },
+  {
+    "id": "t-may-3",
+    "type": "OUTCOME",
+    "description": "Supermarket",
+    "amount": 150,
+    "expected": "2026-05-15T10:00:00.000Z",
+    "date": "2026-05-15T10:00:00.000Z",
+    "tags": ["food", "groceries"]
+  },
+  {
+    "id": "t-may-4",
+    "type": "OUTCOME",
+    "description": "Uber ride",
+    "amount": 3200,
+    "expected": "2026-05-16T15:00:00.000Z",
+    "date": "2026-05-16T15:00:00.000Z",
+    "tags": ["transportation", "uber"]
+  },
+  {
+    "id": "t-may-card-bill",
+    "type": "OUTCOME",
+    "description": "Credit Card Bill",
+    "amount": 5150,
+    "expected": "2026-05-18T10:00:00.000Z",
+    "date": "2026-05-18T10:00:00.000Z",
+    "tags": ["shopping"]
+  },
+  {
+    "id": "t-may-5",
+    "type": "OUTCOME",
+    "description": "Project Payment",
+    "amount": 45000,
+    "expected": "2026-05-24T10:00:00.000Z",
+    "date": "2026-05-24T10:00:00.000Z",
+    "tags": ["investment", "stocks"]
+  },
+  {
+    "id": "t-may-f1",
+    "type": "OUTCOME",
+    "description": "Rent (Exp)",
+    "amount": 15,
+    "expected": "2026-05-20T10:00:00.000Z",
+    "tags": ["housing", "rent"]
+  },
+  {
+    "id": "t-may-f2",
+    "type": "INCOME",
+    "description": "Salary (Inc)",
+    "amount": 4000,
+    "expected": "2026-05-20T09:00:00.000Z",
+    "tags": ["salary", "job"]
+  },
+  {
+    "id": "t-may-f3",
+    "type": "OUTCOME",
+    "description": "Utilities (Exp)",
+    "amount": 8500,
+    "expected": "2026-05-21T11:00:00.000Z",
+    "tags": ["utilities", "power"]
+  },
+  {
+    "id": "t-jun-1",
+    "type": "INCOME",
+    "description": "Salary (Inc)",
+    "amount": 19000,
+    "expected": "2026-06-05T09:00:00.000Z",
+    "date": "2026-06-05T09:00:00.000Z",
+    "tags": ["salary", "job"]
+  },
+  {
+    "id": "t-jun-2",
+    "type": "INCOME",
+    "description": "Design Project Payment",
+    "amount": 2800,
+    "expected": "2026-06-12T14:30:00.000Z",
+    "date": "2026-06-12T15:00:00.000Z",
+    "tags": ["freelance", "design"]
+  },
+  {
+    "id": "t-jun-3",
+    "type": "OUTCOME",
+    "description": "Rent (Exp)",
+    "amount": 3500,
+    "expected": "2026-06-05T10:00:00.000Z",
+    "date": "2026-06-05T10:00:00.000Z",
+    "tags": ["housing", "rent"]
+  },
+  {
+    "id": "t-jun-4",
+    "type": "OUTCOME",
+    "description": "New Headphones",
+    "amount": 350,
+    "expected": "2026-06-18T16:00:00.000Z",
+    "date": "2026-06-18T16:00:00.000Z",
+    "tags": ["electronics", "gadgets"]
+  },
+  {
+    "id": "t-jun-5",
+    "type": "OUTCOME",
+    "description": "ETF Allocation",
+    "amount": 3000,
+    "expected": "2026-06-25T10:00:00.000Z",
+    "date": "2026-06-25T10:00:00.000Z",
+    "tags": ["investment", "etfs"]
+  },
+  {
+    "id": "t-jun-6",
+    "type": "OUTCOME",
+    "description": "Mobile Internet",
+    "amount": 80,
+    "expected": "2026-06-22T09:00:00.000Z",
+    "date": "2026-06-22T09:00:00.000Z",
+    "tags": ["utilities", "phone"]
+  },
+  {
+    "id": "t-jul-1",
+    "type": "INCOME",
+    "description": "Salary (Inc)",
+    "amount": 19000,
+    "expected": "2026-07-05T09:00:00.000Z",
+    "date": "2026-07-05T09:00:00.000Z",
+    "tags": ["salary", "job"]
+  },
+  {
+    "id": "t-jul-2",
+    "type": "INCOME",
+    "description": "Project Payment",
+    "amount": 3500,
+    "expected": "2026-07-19T16:00:00.000Z",
+    "date": "2026-07-19T16:00:00.000Z",
+    "tags": ["freelance", "project"]
+  },
+  {
+    "id": "t-jul-3",
+    "type": "OUTCOME",
+    "description": "Rent (Exp)",
+    "amount": 3500,
+    "expected": "2026-07-05T10:00:00.000Z",
+    "date": "2026-07-05T10:00:00.000Z",
+    "tags": ["housing", "rent"]
+  },
+  {
+    "id": "t-jul-4",
+    "type": "OUTCOME",
+    "description": "Supermarket Supplies",
+    "amount": 820,
+    "expected": "2026-07-10T11:00:00.000Z",
+    "date": "2026-07-10T11:30:00.000Z",
+    "tags": ["food", "groceries"]
+  },
+  {
+    "id": "t-jul-5",
+    "type": "OUTCOME",
+    "description": "Bond Fund Purchase",
+    "amount": 5000,
+    "expected": "2026-07-25T10:00:00.000Z",
+    "date": "2026-07-25T10:00:00.000Z",
+    "tags": ["investment", "bonds"]
+  },
+  {
+    "id": "t-jul-6",
+    "type": "OUTCOME",
+    "description": "Netflix Subscription",
+    "amount": 55,
+    "expected": "2026-07-15T09:00:00.000Z",
+    "date": "2026-07-15T09:00:00.000Z",
+    "tags": ["entertainment", "streaming"]
+  },
+  {
+    "id": "t-aug-1",
+    "type": "INCOME",
+    "description": "Salary (Inc)",
+    "amount": 19000,
+    "expected": "2026-08-05T09:00:00.000Z",
+    "date": "2026-08-05T09:00:00.000Z",
+    "tags": ["salary", "job"]
+  },
+  {
+    "id": "t-aug-2",
+    "type": "INCOME",
+    "description": "Consulting",
+    "amount": 4500,
+    "expected": "2026-08-20T10:00:00.000Z",
+    "date": "2026-08-20T11:00:00.000Z",
+    "tags": ["consulting", "side-income"]
+  },
+  {
+    "id": "t-aug-3",
+    "type": "OUTCOME",
+    "description": "Rent (Exp)",
+    "amount": 3500,
+    "expected": "2026-08-05T10:00:00.000Z",
+    "date": "2026-08-05T10:00:00.000Z",
+    "tags": ["housing", "rent"]
+  },
+  {
+    "id": "t-aug-4",
+    "type": "OUTCOME",
+    "description": "Flight Ticket",
+    "amount": 1500,
+    "expected": "2026-08-10T14:00:00.000Z",
+    "date": "2026-08-10T15:30:00.000Z",
+    "tags": ["travel", "tourism"]
+  },
+  {
+    "id": "t-aug-5",
+    "type": "OUTCOME",
+    "description": "Stocks & Options Buy",
+    "amount": 4000,
+    "expected": "2026-08-25T10:00:00.000Z",
+    "date": "2026-08-25T10:00:00.000Z",
+    "tags": ["investment", "options"]
+  },
+  {
+    "id": "t-aug-6",
+    "type": "OUTCOME",
+    "description": "Software License",
+    "amount": 120,
+    "expected": "2026-08-08T09:00:00.000Z",
+    "date": "2026-08-08T09:00:00.000Z",
+    "tags": ["work", "utilities"]
+  },
+  {
+    "id": "t-sep-1",
+    "type": "INCOME",
+    "description": "Salary (Inc)",
+    "amount": 19500,
+    "expected": "2026-09-05T09:00:00.000Z",
+    "date": "2026-09-05T09:00:00.000Z",
+    "tags": ["salary", "job"]
+  },
+  {
+    "id": "t-sep-2",
+    "type": "INCOME",
+    "description": "Project Milestone 3",
+    "amount": 5000,
+    "expected": "2026-09-18T16:00:00.000Z",
+    "date": "2026-09-18T16:00:00.000Z",
+    "tags": ["freelance", "project"]
+  },
+  {
+    "id": "t-sep-3",
+    "type": "OUTCOME",
+    "description": "Rent (Exp)",
+    "amount": 3500,
+    "expected": "2026-09-05T10:00:00.000Z",
+    "date": "2026-09-05T10:00:00.000Z",
+    "tags": ["housing", "rent"]
+  },
+  {
+    "id": "t-sep-4",
+    "type": "OUTCOME",
+    "description": "Supermarket Biweekly",
+    "amount": 690,
+    "expected": "2026-09-10T11:00:00.000Z",
+    "date": "2026-09-10T11:30:00.000Z",
+    "tags": ["food", "groceries"]
+  },
+  {
+    "id": "t-sep-5",
+    "type": "OUTCOME",
+    "description": "Real Estate Trust Fund",
+    "amount": 3000,
+    "expected": "2026-09-25T10:00:00.000Z",
+    "date": "2026-09-25T10:00:00.000Z",
+    "tags": ["investment", "reit"]
+  },
+  {
+    "id": "t-sep-6",
+    "type": "OUTCOME",
+    "description": "Gas Bill",
+    "amount": 75,
+    "expected": "2026-09-22T09:00:00.000Z",
+    "date": "2026-09-22T09:00:00.000Z",
+    "tags": ["utilities", "gas"]
+  },
+  {
+    "id": "t-oct-1",
+    "type": "INCOME",
+    "description": "Salary (Inc)",
+    "amount": 19500,
+    "expected": "2026-10-05T09:00:00.000Z",
+    "date": "2026-10-05T09:00:00.000Z",
+    "tags": ["salary", "job"]
+  },
+  {
+    "id": "t-oct-2",
+    "type": "INCOME",
+    "description": "Consulting Support",
+    "amount": 3800,
+    "expected": "2026-10-15T10:00:00.000Z",
+    "date": "2026-10-15T11:00:00.000Z",
+    "tags": ["consulting", "side-income"]
+  },
+  {
+    "id": "t-oct-3",
+    "type": "OUTCOME",
+    "description": "Rent (Exp)",
+    "amount": 3500,
+    "expected": "2026-10-05T10:00:00.000Z",
+    "date": "2026-10-05T10:00:00.000Z",
+    "tags": ["housing", "rent"]
+  },
+  {
+    "id": "t-oct-4",
+    "type": "OUTCOME",
+    "description": "Winter Jacket Shopping",
+    "amount": 420,
+    "expected": "2026-10-12T14:00:00.000Z",
+    "date": "2026-10-12T15:30:00.000Z",
+    "tags": ["clothing", "shopping"]
+  },
+  {
+    "id": "t-oct-5",
+    "type": "OUTCOME",
+    "description": "ETF Auto-Buy",
+    "amount": 4500,
+    "expected": "2026-10-25T10:00:00.000Z",
+    "date": "2026-10-25T10:00:00.000Z",
+    "tags": ["investment", "etfs"]
+  },
+  {
+    "id": "t-oct-6",
+    "type": "OUTCOME",
+    "description": "Electricity Bill",
+    "amount": 190,
+    "expected": "2026-10-25T09:00:00.000Z",
+    "date": "2026-10-25T09:00:00.000Z",
+    "tags": ["utilities", "power"]
+  },
+  {
+    "id": "t-nov-1",
+    "type": "INCOME",
+    "description": "Salary (Inc)",
+    "amount": 20000,
+    "expected": "2026-11-05T09:00:00.000Z",
+    "date": "2026-11-05T09:00:00.000Z",
+    "tags": ["salary", "job"]
+  },
+  {
+    "id": "t-nov-2",
+    "type": "INCOME",
+    "description": "Project Bonus",
+    "amount": 6000,
+    "expected": "2026-11-18T14:30:00.000Z",
+    "date": "2026-11-18T16:00:00.000Z",
+    "tags": ["salary", "bonus"]
+  },
+  {
+    "id": "t-nov-3",
+    "type": "OUTCOME",
+    "description": "Rent (Exp)",
+    "amount": 3500,
+    "expected": "2026-11-05T10:00:00.000Z",
+    "date": "2026-11-05T10:00:00.000Z",
+    "tags": ["housing", "rent"]
+  },
+  {
+    "id": "t-nov-4",
+    "type": "OUTCOME",
+    "description": "Thanksgiving Dinner",
+    "amount": 310,
+    "expected": "2026-11-26T18:00:00.000Z",
+    "date": "2026-11-26T18:00:00.000Z",
+    "tags": ["food", "dining"]
+  },
+  {
+    "id": "t-nov-5",
+    "type": "OUTCOME",
+    "description": "S&P 500 Fund purchase",
+    "amount": 5000,
+    "expected": "2026-11-25T10:00:00.000Z",
+    "date": "2026-11-25T10:00:00.000Z",
+    "tags": ["investment", "index-fund"]
+  },
+  {
+    "id": "t-nov-6",
+    "type": "OUTCOME",
+    "description": "Internet Bill",
+    "amount": 150,
+    "expected": "2026-11-22T09:00:00.000Z",
+    "date": "2026-11-22T09:00:00.000Z",
+    "tags": ["utilities", "internet"]
+  },
+  {
+    "id": "t-dec-1",
+    "type": "INCOME",
+    "description": "Salary (Inc)",
+    "amount": 20000,
+    "expected": "2026-12-05T09:00:00.000Z",
+    "date": "2026-12-05T09:00:00.000Z",
+    "tags": ["salary", "job"]
+  },
+  {
+    "id": "t-dec-2",
+    "type": "INCOME",
+    "description": "13th Salary (Inc)",
+    "amount": 20000,
+    "expected": "2026-12-15T09:00:00.000Z",
+    "date": "2026-12-15T09:00:00.000Z",
+    "tags": ["salary", "bonus"]
+  },
+  {
+    "id": "t-dec-3",
+    "type": "OUTCOME",
+    "description": "Rent (Exp)",
+    "amount": 3500,
+    "expected": "2026-12-05T10:00:00.000Z",
+    "date": "2026-12-05T10:00:00.000Z",
+    "tags": ["housing", "rent"]
+  },
+  {
+    "id": "t-dec-4",
+    "type": "OUTCOME",
+    "description": "Christmas Gifts",
+    "amount": 1800,
+    "expected": "2026-12-20T12:00:00.000Z",
+    "date": "2026-12-22T15:00:00.000Z",
+    "tags": ["shopping", "gifts"]
+  },
+  {
+    "id": "t-dec-5",
+    "type": "OUTCOME",
+    "description": "Year-End Portfolio TopUp",
+    "amount": 10000,
+    "expected": "2026-12-28T10:00:00.000Z",
+    "date": "2026-12-28T10:00:00.000Z",
+    "tags": ["investment", "stocks"]
+  },
+  {
+    "id": "t-dec-6",
+    "type": "OUTCOME",
+    "description": "Hosting Renewal",
+    "amount": 300,
+    "expected": "2026-12-24T09:00:00.000Z",
+    "date": "2026-12-24T09:00:00.000Z",
+    "tags": ["web", "utilities"]
+  }
+]
