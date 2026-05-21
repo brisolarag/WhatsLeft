@@ -1,0 +1,28 @@
+# Valores específicos para o Oracle Kubernetes Engine (OKE)
+
+
+api:
+  image:
+    # Substitua pelo endereço do seu OCIR (Oracle Container Registry)
+    # Exemplo: gru.ocir.io/sua-tenancy/whatsleft-api
+    repository: sa-saopaulo-1.ocir.io/gruyvux68qma/whatsleft-api
+    tag: "latest"
+  service:
+    type: ClusterIP # A API fica interna por segurança
+
+view:
+  image:
+    # Substitua pelo endereço do seu OCIR
+    # Exemplo: gru.ocir.io/sua-tenancy/whatsleft-view
+    repository: sa-saopaulo-1.ocir.io/gruyvux68qma/whatsleft-view
+    tag: "latest"
+  service:
+    # No Oracle Cloud, usar LoadBalancer vai provisionar automaticamente 
+    # um OCI Load Balancer com um IP público para o frontend.
+    type: LoadBalancer
+
+# Caso prefira usar Ingress em vez de LoadBalancer direto no frontend
+ingress:
+  enabled: false
+  # annotations:
+  #   kubernetes.io/ingress.class: nginx

@@ -1,0 +1,6 @@
+@WhatsLeft.API_HostAddress = http://localhost:5063
+
+GET {{WhatsLeft.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

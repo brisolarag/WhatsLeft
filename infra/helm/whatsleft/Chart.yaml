@@ -1,0 +1,6 @@
+apiVersion: v2
+name: whatsleft
+description: A Helm chart for Kubernetes to deploy WhatsLeft API and View
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

@@ -1,0 +1,14 @@
+# Valores específicos para rodar localmente no Minikube/Kind
+api:
+  image:
+    repository: gbrisolara/whatsleft-api
+    tag: "v1"
+  service:
+    type: NodePort
+    
+view:
+  image:
+    repository: gbrisolara/whatsleft-view
+    tag: "v2"
+  service:
+    type: NodePort

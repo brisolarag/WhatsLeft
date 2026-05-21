@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "whatsleft.fullname" . }}-view
+  labels:
+    app.kubernetes.io/name: {{ include "whatsleft.name" . }}-view
+    helm.sh/chart: {{ include "whatsleft.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.view.service.type }}
+  ports:
+    - port: {{ .Values.view.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "whatsleft.name" . }}-view
+    app.kubernetes.io/instance: {{ .Release.Name }}
