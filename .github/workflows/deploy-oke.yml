@@ -58,6 +58,7 @@ jobs:
 
       - name: Deploy with Helm
         run: |
+          helm dependency update ${{ env.HELM_CHART_PATH }}
           helm upgrade --install ${{ env.HELM_RELEASE_NAME }} ${{ env.HELM_CHART_PATH }} \
             --kube-apiserver ${{ secrets.KUBE_SERVER }} \
             --kube-token ${{ secrets.KUBE_TOKEN }} \
