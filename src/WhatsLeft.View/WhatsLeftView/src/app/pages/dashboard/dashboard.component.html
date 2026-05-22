@@ -1,23 +1,25 @@
 <div class="dashboard-wrapper">
-  
+
   <!-- Month Navigator -->
   <header class="month-navigator">
     <button class="nav-arrow-btn" (click)="prevMonth()" aria-label="Previous Month">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="arrow-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"
+        class="arrow-icon">
         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
       </svg>
     </button>
     <h1 class="current-month-heading">{{ monthYearLabel }}</h1>
     <button class="nav-arrow-btn" (click)="nextMonth()" aria-label="Next Month">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="arrow-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"
+        class="arrow-icon">
         <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
       </svg>
     </button>
   </header>
 
-  <!-- Dashboard Top Cards Section -->
-  <div class="top-dashboard-grid">
-    
+  <!-- Dashboard Grid -->
+  <div class="dashboard-grid">
+
     <!-- Spends & Income Card -->
     <section class="card-premium chart-card">
       <div class="chart-header">
@@ -33,7 +35,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- Responsive SVG Line Chart -->
       <div class="svg-chart-container">
         <svg [attr.viewBox]="'0 0 ' + chartWidth + ' ' + chartHeight" class="vector-chart">
@@ -49,84 +51,77 @@
             </linearGradient>
           </defs>
 
-          <!-- Horizontal Grid Lines & Y Axis Labels -->
-          <g class="grid-lines-group">
-            <ng-container *ngFor="let gridVal of yGridLines; let i = index">
-              <!-- Grid line horizontal -->
-              <line 
-                x1="45" 
-                [attr.y1]="chartPadding + (chartHeight - (chartPadding*2)) * (1 - (gridVal / 250000))" 
-                [attr.x2]="chartWidth - chartPadding" 
-                [attr.y2]="chartPadding + (chartHeight - (chartPadding*2)) * (1 - (gridVal / 250000))" 
-                class="grid-line-horizontal" />
-              <!-- Y Axis Label -->
-              <text 
-                x="40" 
-                [attr.y]="chartPadding + 4 + (chartHeight - (chartPadding*2)) * (1 - (gridVal / 250000))" 
-                class="axis-text axis-y-text">
-                {{ gridVal === 0 ? '0' : (gridVal | number:'1.0-0') }}
-              </text>
-            </ng-container>
-          </g>
 
-          <!-- X Axis Day Gridlines & Labels -->
-          <g class="grid-days-group">
-            <ng-container *ngFor="let coord of xGridCoords">
-              <text 
-                [attr.x]="coord.x" 
-                [attr.y]="chartHeight - 8" 
-                class="axis-text axis-x-text">
-                {{ coord.day }}
-              </text>
-            </ng-container>
-          </g>
+
+
 
           <!-- Smooth Area Path fills -->
           <!-- We build closed shapes by adding lines to bottom corners -->
-          <path *ngIf="svgPathIncome" [attr.d]="svgPathIncome + ' L ' + xGridCoords[xGridCoords.length-1].x + ' ' + (chartHeight - chartPadding) + ' L ' + xGridCoords[0].x + ' ' + (chartHeight - chartPadding) + ' Z'" fill="url(#incomeGrad)" />
-          <path *ngIf="svgPathSpends" [attr.d]="svgPathSpends + ' L ' + xGridCoords[xGridCoords.length-1].x + ' ' + (chartHeight - chartPadding) + ' L ' + xGridCoords[0].x + ' ' + (chartHeight - chartPadding) + ' Z'" fill="url(#spendsGrad)" />
+          <path *ngIf="svgPathIncome"
+            [attr.d]="svgPathIncome + ' L ' + xGridCoords[xGridCoords.length-1].x + ' ' + (chartHeight - chartPadding) + ' L ' + xGridCoords[0].x + ' ' + (chartHeight - chartPadding) + ' Z'"
+            fill="url(#incomeGrad)" />
+          <path *ngIf="svgPathSpends"
+            [attr.d]="svgPathSpends + ' L ' + xGridCoords[xGridCoords.length-1].x + ' ' + (chartHeight - chartPadding) + ' L ' + xGridCoords[0].x + ' ' + (chartHeight - chartPadding) + ' Z'"
+            fill="url(#spendsGrad)" />
 
           <!-- Dynamic SVG Vector Paths -->
-          <path *ngIf="svgPathIncome" [attr.d]="svgPathIncome" class="vector-line line-income" fill="none" stroke-width="3" stroke-linecap="round" />
-          <path *ngIf="svgPathSpends" [attr.d]="svgPathSpends" class="vector-line line-spends" fill="none" stroke-width="3" stroke-linecap="round" />
+          <path *ngIf="svgPathIncome" [attr.d]="svgPathIncome" class="vector-line line-income" fill="none"
+            stroke-width="3" stroke-linecap="round" />
+          <path *ngIf="svgPathSpends" [attr.d]="svgPathSpends" class="vector-line line-spends" fill="none"
+            stroke-width="3" stroke-linecap="round" />
 
           <!-- Interactive scatter points on top of path vertices -->
           <g class="chart-points-group">
             <!-- Draw end dots to highlight total current states -->
-            <circle [attr.cx]="xGridCoords[xGridCoords.length-1].x" [attr.cy]="chartPadding + (chartHeight - (chartPadding*2)) * (1 - (228000 / 250000))" r="4.5" fill="var(--color-income)" class="chart-point" stroke="#fff" stroke-width="1.5" />
-            <circle [attr.cx]="xGridCoords[xGridCoords.length-1].x" [attr.cy]="chartPadding + (chartHeight - (chartPadding*2)) * (1 - (72000 / 250000))" r="4.5" fill="var(--color-spends)" class="chart-point" stroke="#fff" stroke-width="1.5" />
+            <circle *ngIf="incomePoints.length > 0" [attr.cx]="incomePoints[incomePoints.length-1].x"
+              [attr.cy]="incomePoints[incomePoints.length-1].y" r="4.5"
+              fill="var(--color-income)" class="chart-point" stroke="#fff" stroke-width="1.5" />
+            <circle *ngIf="spentPoints.length > 0" [attr.cx]="spentPoints[spentPoints.length-1].x"
+              [attr.cy]="spentPoints[spentPoints.length-1].y" r="4.5"
+              fill="var(--color-spends)" class="chart-point" stroke="#fff" stroke-width="1.5" />
+          </g>
+
+          <!-- Interactive hover points (invisible) to show values -->
+          <g class="hover-points-group">
+            <circle *ngFor="let pt of incomePoints" 
+                    [attr.cx]="pt.x" [attr.cy]="pt.y" 
+                    r="12" fill="transparent" class="hover-circle">
+              <title>Income (Day {{ pt.day }}): R$ {{ pt.val | number:'1.2-2' }}</title>
+            </circle>
+            
+            <circle *ngFor="let pt of spentPoints" 
+                    [attr.cx]="pt.x" [attr.cy]="pt.y" 
+                    r="12" fill="transparent" class="hover-circle">
+              <title>Spends (Day {{ pt.day }}): R$ {{ pt.val | number:'1.2-2' }}</title>
+            </circle>
           </g>
         </svg>
       </div>
     </section>
 
-    <!-- Side Metrics Widgets Container -->
-    <div class="metrics-column">
-      
+    <!-- Side Metrics Widgets Container (Unwrapped for Grid) -->
+
+    <div class="right-panel">
       <!-- Net Remaining Card -->
       <section class="card-premium remaining-card">
         <h2 class="remaining-heading">Remaining: R$ {{ remaining | number:'1.0-0' }}</h2>
-        
+
         <div class="progress-rings-row">
-          
-          <!-- Invested Progress -->
+
+          <!-- Received Progress -->
           <div class="ring-col">
             <div class="ring-data">
-              <span class="ring-title">Invested:</span>
-              <span class="ring-value">R$ {{ totalInvested | number:'1.0-0' }}</span>
+              <span class="ring-title">Received:</span>
+              <span class="ring-value">R$ {{ totalIncome | number:'1.0-0' }}</span>
             </div>
             <div class="ring-svg-container">
               <svg width="42" height="42" viewBox="0 0 42 42" class="gauge-ring">
                 <!-- Outer background circle -->
                 <circle cx="21" cy="21" r="17.5" fill="none" stroke="rgba(60, 163, 136, 0.1)" stroke-width="3.5" />
                 <!-- Filled active circle -->
-                <circle cx="21" cy="21" r="17.5" fill="none" 
-                  stroke="var(--color-income)" 
-                  stroke-width="3.5" 
-                  stroke-linecap="round"
-                  stroke-dasharray="110" 
-                  [attr.stroke-dashoffset]="110 - (110 * investedPercentage) / 100" 
-                  transform="rotate(-90 21 21)" />
+                <circle cx="21" cy="21" r="17.5" fill="none" stroke="var(--color-income)" stroke-width="3.5"
+                  stroke-linecap="round" stroke-dasharray="110"
+                  [attr.stroke-dashoffset]="110 - (110 * receivedPercentage) / 100" transform="rotate(-90 21 21)" />
               </svg>
             </div>
           </div>
@@ -142,50 +137,91 @@
                 <!-- Outer background circle -->
                 <circle cx="21" cy="21" r="17.5" fill="none" stroke="rgba(224, 122, 95, 0.1)" stroke-width="3.5" />
                 <!-- Filled active circle -->
-                <circle cx="21" cy="21" r="17.5" fill="none" 
-                  stroke="var(--color-spends)" 
-                  stroke-width="3.5" 
-                  stroke-linecap="round"
-                  stroke-dasharray="110" 
-                  [attr.stroke-dashoffset]="110 - (110 * spentPercentage) / 100" 
-                  transform="rotate(-90 21 21)" />
+                <circle cx="21" cy="21" r="17.5" fill="none" stroke="var(--color-spends)" stroke-width="3.5"
+                  stroke-linecap="round" stroke-dasharray="110"
+                  [attr.stroke-dashoffset]="110 - (110 * spentPercentage) / 100" transform="rotate(-90 21 21)" />
               </svg>
             </div>
           </div>
-          
+
         </div>
       </section>
 
-      <!-- Spending Forecast Card -->
-      <section class="card-premium forecast-card">
-        <h2 class="card-title">Spending Forecast</h2>
-        
-        <div class="forecast-table-wrapper">
-          <table class="forecast-table">
+      <!-- Botto Section: Recent History -->
+      <section class="card-premium history-card" id="recent-history">
+        <h2 class="card-title-lg">Recent History</h2>
+
+        <div class="history-table-wrapper">
+          <table class="history-table">
             <thead>
               <tr>
                 <th scope="col">Date</th>
                 <th scope="col">Description</th>
                 <th scope="col">Predicted Amount</th>
-                <th scope="col">Income/Expense</th>
-                <th scope="col">Received?</th>
+                <th scope="col">Expected</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let t of forecastTransactions">
-                <td class="date-col">{{ t.expected | date:'dd.MM.yyyy' }}</td>
-                <td class="desc-col font-medium">{{ t.description }}</td>
-                <td class="amount-col font-medium">R$ {{ t.amount | number:'1.0-0' }}</td>
-                <td class="badge-col">
-                  <span class="type-indicator" [ngClass]="t.type === 'INCOME' ? 'type-income-text' : 'type-expense-text'">
-                    {{ t.type === 'INCOME' ? 'Income' : 'Expense' }}
-                  </span>
+              <tr *ngFor="let t of recentHistoryTransactions; let i = index" 
+                  (dblclick)="openTransactionModal(t)"
+                  [class.row-pending]="!t.date">
+                <!-- Col 1: Icon + Title + Date Details -->
+                <td class="identity-col">
+                  <div class="identity-cell">
+                    <div class="circle-icon-avatar" [ngClass]="getTransactionIconClass(t.description || '')">
+                      <!-- Conditional icon display matching descriptions -->
+                      <svg *ngIf="getTransactionIconClass(t.description || '') === 'icon-supermarket'"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                        stroke="currentColor" class="avatar-svg">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                      </svg>
+                      <svg *ngIf="getTransactionIconClass(t.description || '') === 'icon-uber'"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                        stroke="currentColor" class="avatar-svg">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h8.25m-8.25 0h-1.5m11.25 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.5m-1.5 0H16.5m-3-12h2.25c.578 0 1.117.266 1.467.72l2.633 3.414c.484.629.74 1.405.74 2.206v2.16c0 .621-.504 1.125-1.125 1.125H3.375A1.125 1.125 0 0 1 2.25 15v-2.25c0-.621.504-1.125 1.125-1.125h1.5l1.414-2.828A1.125 1.125 0 0 1 7.28 8.25h4.97" />
+                      </svg>
+                      <svg
+                        *ngIf="getTransactionIconClass(t.description || '') === 'icon-project' || getTransactionIconClass(t.description || '') === 'icon-default'"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                        stroke="currentColor" class="avatar-svg">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
+                      </svg>
+                    </div>
+                    <div class="name-date-group">
+                      <span class="primary-description">{{ t.description }}</span>
+                      <span class="formatted-timestamp">{{ (t.date ? t.date : t.expected) | date:'MMMM dd, yyyy, HH:mm' }}</span>
+                      <span class="pending-hint" *ngIf="!t.date">Not Executed</span>
+                    </div>
+                  </div>
                 </td>
-                <td class="check-col">
-                  <div class="check-container" [ngClass]="getForecastCheckClass(t.description || '')">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="check-svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                    </svg>
+
+                <!-- Col 2: Category Matching (Counterpart forecast title reference) -->
+                <td class="category-col font-medium text-slate">
+                  <!-- Provide counterpart forecasts matches based on tags -->
+                  @if (t.tags.includes('groceries')) { Rent (Exp) }
+                  @else if (t.tags.includes('uber')) { Salary (Inc) }
+                  @else if (t.tags.includes('shopping')) { Internet Bill }
+                  @else { Miscellaneous }
+                </td>
+
+                <!-- Col 3: Predicted amount reference values -->
+                <td class="predicted-col text-slate font-medium">
+                  @if (t.tags.includes('groceries')) { R$ 15.00 }
+                  @else if (t.tags.includes('uber')) { R$ 4,000 }
+                  @else if (t.tags.includes('shopping')) { R$ 8,500 }
+                  @else { R$ 0.00 }
+                </td>
+
+                <!-- Col 4: Settled amounts & color badges -->
+                <td class="settled-col">
+                  <div class="settled-cell">
+                    <span class="settled-val font-semibold">R$ {{ t.amount | number:'1.2-2' }}</span>
+                    <span class="badge-status" [ngClass]="t.type === 'INCOME' ? 'badge-income' : 'badge-expense'">
+                      {{ t.type === 'INCOME' ? 'Income' : 'Expense' }}
+                    </span>
                   </div>
                 </td>
               </tr>
@@ -193,78 +229,15 @@
           </table>
         </div>
       </section>
-
     </div>
-  </div>
 
-  <!-- Bottom Section: Recent History -->
-  <section class="card-premium history-card">
-    <h2 class="card-title-lg">Recent History</h2>
-    
-    <div class="history-table-wrapper">
-      <table class="history-table">
-        <thead>
-          <tr>
-            <th scope="col">Date</th>
-            <th scope="col">Description</th>
-            <th scope="col">Predicted Amount</th>
-            <th scope="col">Received?</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let t of recentHistoryTransactions; let i = index">
-            <!-- Col 1: Icon + Title + Date Details -->
-            <td class="identity-col">
-              <div class="identity-cell">
-                <div class="circle-icon-avatar" [ngClass]="getTransactionIconClass(t.description || '')">
-                  <!-- Conditional icon display matching descriptions -->
-                  <svg *ngIf="getTransactionIconClass(t.description || '') === 'icon-supermarket'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="avatar-svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                  </svg>
-                  <svg *ngIf="getTransactionIconClass(t.description || '') === 'icon-uber'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="avatar-svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h8.25m-8.25 0h-1.5m11.25 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.5m-1.5 0H16.5m-3-12h2.25c.578 0 1.117.266 1.467.72l2.633 3.414c.484.629.74 1.405.74 2.206v2.16c0 .621-.504 1.125-1.125 1.125H3.375A1.125 1.125 0 0 1 2.25 15v-2.25c0-.621.504-1.125 1.125-1.125h1.5l1.414-2.828A1.125 1.125 0 0 1 7.28 8.25h4.97" />
-                  </svg>
-                  <svg *ngIf="getTransactionIconClass(t.description || '') === 'icon-project' || getTransactionIconClass(t.description || '') === 'icon-default'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="avatar-svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
-                  </svg>
-                </div>
-                <div class="name-date-group">
-                  <span class="primary-description">{{ t.description }}</span>
-                  <span class="formatted-timestamp">{{ t.date | date:'MMMM dd, yyyy, HH:mm' }}</span>
-                </div>
-              </div>
-            </td>
-            
-            <!-- Col 2: Category Matching (Counterpart forecast title reference) -->
-            <td class="category-col font-medium text-slate">
-              <!-- Provide counterpart forecasts matches based on tags -->
-              @if (t.tags.includes('groceries')) { Rent (Exp) }
-              @else if (t.tags.includes('uber')) { Salary (Inc) }
-              @else if (t.tags.includes('shopping')) { Internet Bill }
-              @else { Miscellaneous }
-            </td>
-            
-            <!-- Col 3: Predicted amount reference values -->
-            <td class="predicted-col text-slate font-medium">
-              @if (t.tags.includes('groceries')) { R$ 15.00 }
-              @else if (t.tags.includes('uber')) { R$ 4,000 }
-              @else if (t.tags.includes('shopping')) { R$ 8,500 }
-              @else { R$ 0.00 }
-            </td>
-            
-            <!-- Col 4: Settled amounts & color badges -->
-            <td class="settled-col">
-              <div class="settled-cell">
-                <span class="settled-val font-semibold">R$ {{ t.amount | number:'1.2-2' }}</span>
-                <span class="badge-status" [ngClass]="t.type === 'INCOME' ? 'badge-income' : 'badge-expense'">
-                  {{ t.type === 'INCOME' ? 'Income' : 'Expense' }}
-                </span>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
+  </div> <!-- End dashboard-grid -->
 </div>
+
+<!-- Transaction Modal -->
+<app-transaction-modal
+  *ngIf="isTransactionModalOpen && selectedTransaction"
+  [transaction]="selectedTransaction"
+  (save)="saveTransaction($event)"
+  (cancel)="closeTransactionModal()">
+</app-transaction-modal>

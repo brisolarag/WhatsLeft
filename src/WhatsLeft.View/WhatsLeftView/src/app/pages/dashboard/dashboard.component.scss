@@ -2,6 +2,10 @@
   display: flex;
   flex-direction: column;
   gap: 32px;
+  height: 680px;
+  /* Tamanho fixo menor para caber na tela do usuario */
+  max-height: calc(100vh - 40px);
+  overflow: hidden;
 }
 
 /* Month Navigator Header */
@@ -53,17 +57,13 @@
   height: 18px;
 }
 
-/* Top Dashboard Layout Grid */
-.top-dashboard-grid {
+/* Dashboard Layout Grid */
+.dashboard-grid {
   display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  gap: 32px;
-}
-
-.metrics-column {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  height: 100%;
+  min-height: 0;
 }
 
 /* Card Titles */
@@ -88,6 +88,15 @@
   flex-direction: column;
   gap: 20px;
   padding: 28px 24px;
+  height: 100%;
+}
+
+.right-panel {
+  display: grid;
+  grid-template-rows: calc(25% - 12px) calc(75% - 12px);
+  gap: 24px;
+  height: 100%;
+  overflow: hidden;
 }
 
 .chart-header {
@@ -201,18 +210,19 @@
 
 /* 2. Net Remaining Balance Card */
 .remaining-card {
-  padding: 24px;
+  padding: 20px 24px;
   background-color: var(--bg-card);
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  justify-content: center;
+  gap: 14px;
 }
 
 .remaining-heading {
-  font-size: 1.45rem;
-  font-weight: 700;
+  font-size: 1.15rem;
+  font-weight: 600;
   color: var(--text-primary);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 .progress-rings-row {
@@ -367,11 +377,17 @@
 /* 4. Recent History Section Card */
 .history-card {
   padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
 }
 
 .history-table-wrapper {
   width: 100%;
   overflow-x: auto;
+  overflow-y: auto;
+  flex: 1;
 }
 
 .history-table {
@@ -464,7 +480,8 @@
   color: var(--text-secondary);
 }
 
-.category-col, .predicted-col {
+.category-col,
+.predicted-col {
   font-size: 0.8125rem !important;
 }
 
@@ -502,9 +519,43 @@
 
 /* Responsive Breakpoints Adaptability */
 @media (max-width: 1024px) {
-  .top-dashboard-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
+  .dashboard-wrapper {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .dashboard-grid {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+    gap: 24px;
+  }
+
+  .right-panel {
+    display: flex;
+    flex-direction: column;
+    order: 1;
+    height: auto;
+    overflow: visible;
+    gap: 24px;
+  }
+
+  .chart-card {
+    order: 2;
+    height: 400px;
+    flex-shrink: 0;
+  }
+
+  .remaining-card {
+    height: auto;
+    flex-shrink: 0;
+  }
+
+  .history-card {
+    height: 450px;
+    flex-shrink: 0;
   }
 }
 
@@ -524,8 +575,11 @@
     gap: 12px;
   }
 
-  .history-table, .forecast-table {
-    th, td {
+  .history-table,
+  .forecast-table {
+
+    th,
+    td {
       padding: 10px 8px;
     }
   }

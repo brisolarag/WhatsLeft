@@ -3,3 +3,17 @@
 <main class="app-container">
   <router-outlet></router-outlet>
 </main>
+
+<!-- Command Central Hint -->
+<div class="command-central-hint">
+  H + H - Command Central
+</div>
+
+<!-- Command Central Modal -->
+<div class="modal-overlay" *ngIf="isCommandCentralOpen" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>Command Central</h2>
+    <p>Central de Comandos ativada. Em breve você poderá executar ações rápidas aqui.</p>
+    <button class="close-btn" (click)="closeModal()">Fechar</button>
+  </div>
+</div>

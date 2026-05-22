@@ -2,10 +2,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { API_SERVICE } from '../../helpers/api.token';
 import { TransactionModel } from '../../models/transaction.model';
+import { TransactionModalComponent } from '../../components/transaction-modal/transaction-modal.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, TransactionModalComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
@@ -18,28 +20,36 @@ export class DashboardComponent implements OnInit {
 
   // Data Collections
   transactions: TransactionModel[] = [];
-  forecastTransactions: TransactionModel[] = [];
+
+
+  // Dashboard Metrics
+  totalIncome = 0;
+  totalSpent = 0;
+  remaining = 0;
+
+  receivedPercentage = 0;
+  spentPercentage = 0;
+
+  // Recent History
   recentHistoryTransactions: TransactionModel[] = [];
 
-  // Financial Metrics
-  remaining = 0;
-  totalInvested = 0;
-  totalSpent = 0;
-  totalIncome = 0;
-
-  // Investment progress circle indicators (percentages)
-  investedPercentage = 0;
-  spentPercentage = 0;
+  // Transaction Modal State
+  selectedTransaction: TransactionModel | null = null;
+  isTransactionModalOpen = false;
 
   // Chart Properties
   chartWidth = 620;
   chartHeight = 220;
-  chartPadding = 30;
-  chartDays = [1, 3, 5, 7, 9, 11, 13, 15, 17, 18, 19, 21, 23, 25, 27, 29];
-  yGridLines: number[] = [];
+  chartPadding = 16;
+
+  // Dynamic arrays
+  chartDays: number[] = [];
   xGridCoords: { day: number; x: number }[] = [];
   svgPathIncome = '';
   svgPathSpends = '';
+
+  incomePoints: { x: number; y: number; val: number; day: number }[] = [];
+  spentPoints: { x: number; y: number; val: number; day: number }[] = [];
 
   ngOnInit(): void {
     this.loadData();
@@ -53,6 +63,28 @@ export class DashboardComponent implements OnInit {
   nextMonth(): void {
     this.currentDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 1);
     this.loadData();
+  }
+
+  // Modal Handlers
+  openTransactionModal(transaction: TransactionModel): void {
+    this.selectedTransaction = transaction;
+    this.isTransactionModalOpen = true;
+  }
+
+  closeTransactionModal(): void {
+    this.isTransactionModalOpen = false;
+    this.selectedTransaction = null;
+  }
+
+  saveTransaction(updatedTransaction: TransactionModel): void {
+    if (!updatedTransaction.id) return;
+    this.apiService.updateTransaction(updatedTransaction.id, updatedTransaction).subscribe({
+      next: () => {
+        this.closeTransactionModal();
+        this.loadData(); // Reload data to reflect changes
+      },
+      error: (err) => console.error('Error updating transaction:', err)
+    });
   }
 
   private loadData(): void {
@@ -75,7 +107,6 @@ export class DashboardComponent implements OnInit {
 
   private calculateMetrics(): void {
     this.totalIncome = 0;
-    this.totalInvested = 0;
     this.totalSpent = 0;
 
     // Filter by settled transactions (ones that have a date field populated)
@@ -84,65 +115,46 @@ export class DashboardComponent implements OnInit {
         if (t.type === 'INCOME') {
           this.totalIncome += t.amount;
         } else if (t.type === 'OUTCOME') {
-          if (t.tags.includes('investment')) {
-            this.totalInvested += t.amount;
-          } else {
-            this.totalSpent += t.amount;
-          }
+          this.totalSpent += t.amount;
         }
       }
     });
 
     // Calculate remaining
-    this.remaining = this.totalIncome - this.totalInvested - this.totalSpent;
+    this.remaining = this.totalIncome - this.totalSpent;
 
     // Gauge Percentages (Cap at 100%)
-    const totalOutflowLimit = 300000; // Reference maximum scale for circular gauges
-    this.investedPercentage = Math.min(Math.round((this.totalInvested / 60000) * 100), 100); // 60k limit
-    this.spentPercentage = Math.min(Math.round((this.totalSpent / 15000) * 100), 100);     // 15k limit
+    this.receivedPercentage = Math.min(Math.round((this.totalIncome / 20000) * 100), 100); // 20k limit approx
+    this.spentPercentage = Math.min(Math.round((this.totalSpent / 20000) * 100), 100);     // 20k limit approx
   }
 
   private extractLists(): void {
-    // Forecasts represent transactions where 'date' is not populated (predicted upcoming events)
-    this.forecastTransactions = this.transactions.filter(t => !t.date);
-
-    // Recent history represents actual settled transactions (where 'date' is populated)
-    // Order by date descending
+    // Recent history will now show all transactions for the month, so users can edit them
+    // Order by date (or expected if no date) descending
     this.recentHistoryTransactions = this.transactions
-      .filter(t => t.date)
       .sort((a, b) => {
-        const timeA = a.date ? a.date.getTime() : 0;
-        const timeB = b.date ? b.date.getTime() : 0;
+        const timeA = a.date ? a.date.getTime() : a.expected.getTime();
+        const timeB = b.date ? b.date.getTime() : b.expected.getTime();
         return timeA - timeB; // ascending for neat layout or sorted order
       });
   }
 
   private generateChartData(): void {
-    // Generate scale boundaries
-    const maxVal = 250000;
-    this.yGridLines = [0, 50000, 100000, 150000, 200000, 250000];
+    // 1. Determine days in the current month
+    const year = this.currentDate.getFullYear();
+    const month = this.currentDate.getMonth();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    this.chartDays = Array.from({ length: daysInMonth }, (_, i) => i + 1);
 
-    const wAvailable = this.chartWidth - (this.chartPadding * 2);
-    const hAvailable = this.chartHeight - (this.chartPadding * 2);
-
-    // Generate horizontal day coords
-    this.xGridCoords = this.chartDays.map(day => {
-      const x = this.chartPadding + ((day - 1) / (29 - 1)) * wAvailable;
-      return { day, x };
-    });
-
-    // Accumulate transaction amounts chronologically over the sampled days
-    const incomeTrendPoints: { x: number; y: number }[] = [];
-    const spentTrendPoints: { x: number; y: number }[] = [];
-
-    this.xGridCoords.forEach(coord => {
+    // 2. Accumulate transactions chronologically
+    const rawPoints = this.chartDays.map(day => {
       let incomeSum = 0;
       let spentSum = 0;
 
-      // Filter transactions up to this day
       this.transactions.forEach(t => {
-        const tDate = t.date ? t.date : t.expected;
-        if (tDate.getDate() <= coord.day) {
+        // Ensure t.date and t.expected are Date objects (they might be strings if coming from raw JSON without hydration)
+        const tDate = t.date ? new Date(t.date) : new Date(t.expected);
+        if (tDate.getDate() <= day) {
           if (t.type === 'INCOME') {
             incomeSum += t.amount;
           } else {
@@ -150,64 +162,72 @@ export class DashboardComponent implements OnInit {
           }
         }
       });
+      return { day, incomeSum, spentSum };
+    });
 
-      // Special visual scaling to match high-fidelity graph visual curve (adds slight offsets if zero to prevent flatlines)
-      if (this.currentDate.getMonth() === 4 && this.currentDate.getFullYear() === 2026) {
-        // Tweak coordinates for perfect May 2026 screenshot curve!
-        if (coord.day === 1) { incomeSum = 40000; spentSum = 20000; }
-        else if (coord.day === 3) { incomeSum = 65000; spentSum = 30000; }
-        else if (coord.day === 5) { incomeSum = 72000; spentSum = 45000; }
-        else if (coord.day === 7) { incomeSum = 74000; spentSum = 38000; }
-        else if (coord.day === 9) { incomeSum = 85000; spentSum = 120000; }
-        else if (coord.day === 11) { incomeSum = 95000; spentSum = 188000; }
-        else if (coord.day === 13) { incomeSum = 110000; spentSum = 110000; }
-        else if (coord.day === 15) { incomeSum = 120000; spentSum = 75000; }
-        else if (coord.day === 17) { incomeSum = 118000; spentSum = 55000; }
-        else if (coord.day === 18) { incomeSum = 145000; spentSum = 60000; }
-        else if (coord.day === 19) { incomeSum = 158000; spentSum = 78000; }
-        else if (coord.day === 21) { incomeSum = 168000; spentSum = 72000; }
-        else if (coord.day === 23) { incomeSum = 188000; spentSum = 65000; }
-        else if (coord.day === 25) { incomeSum = 175000; spentSum = 85000; }
-        else if (coord.day === 27) { incomeSum = 205000; spentSum = 78000; }
-        else if (coord.day === 29) { incomeSum = 228000; spentSum = 72000; }
-      } else {
-        // Fallback standard calculation for other months
-        // Ensure starting and pacing feels realistic
-        if (incomeSum === 0) incomeSum = 15000;
-        if (spentSum === 0) spentSum = 8000;
-      }
+    // 3. Determine dynamic scale (min and max values)
+    let maxVal = -Infinity;
+    let minVal = Infinity;
 
-      // Convert day value to SVG coordinate
-      const yIncome = (this.chartPadding + hAvailable) - (incomeSum / maxVal) * hAvailable;
-      const ySpent = (this.chartPadding + hAvailable) - (spentSum / maxVal) * hAvailable;
+    rawPoints.forEach(p => {
+      maxVal = Math.max(maxVal, p.incomeSum, p.spentSum);
+      minVal = Math.min(minVal, p.incomeSum, p.spentSum);
+    });
 
-      incomeTrendPoints.push({ x: coord.x, y: yIncome });
-      spentTrendPoints.push({ x: coord.x, y: ySpent });
+    if (maxVal === -Infinity) maxVal = 100;
+    if (minVal === Infinity) minVal = 0;
+
+    // Add a small padding to the scale so lines don't touch the absolute top/bottom
+    const range = maxVal - minVal;
+    const valuePadding = range === 0 ? 100 : range * 0.1;
+    maxVal += valuePadding;
+    minVal = Math.max(0, minVal - valuePadding); // Usually keep 0 as floor if it makes sense, but we allow lower if needed
+
+    // 4. Generate visual coordinates
+    const wAvailable = this.chartWidth - (this.chartPadding * 2);
+    const hAvailable = this.chartHeight - (this.chartPadding * 2);
+
+    this.xGridCoords = this.chartDays.map(day => {
+      const x = this.chartPadding + ((day - 1) / (daysInMonth - 1)) * wAvailable;
+      return { day, x };
+    });
+
+    this.incomePoints = [];
+    this.spentPoints = [];
+
+    this.xGridCoords.forEach((coord, i) => {
+      const p = rawPoints[i];
+
+      const yIncome = (this.chartPadding + hAvailable) - ((p.incomeSum - minVal) / (maxVal - minVal)) * hAvailable;
+      const ySpent = (this.chartPadding + hAvailable) - ((p.spentSum - minVal) / (maxVal - minVal)) * hAvailable;
+
+      this.incomePoints.push({ x: coord.x, y: yIncome, val: p.incomeSum, day: coord.day });
+      this.spentPoints.push({ x: coord.x, y: ySpent, val: p.spentSum, day: coord.day });
     });
 
     // Build SVG paths (Cubic Bezier curve strings for smoothness)
-    this.svgPathIncome = this.buildSmoothPath(incomeTrendPoints);
-    this.svgPathSpends = this.buildSmoothPath(spentTrendPoints);
+    this.svgPathIncome = this.buildSmoothPath(this.incomePoints);
+    this.svgPathSpends = this.buildSmoothPath(this.spentPoints);
   }
 
   // Generate a beautiful, smooth bezier curve between points
   private buildSmoothPath(points: { x: number; y: number }[]): string {
     if (points.length === 0) return '';
     let path = `M ${points[0].x} ${points[0].y}`;
-    
+
     for (let i = 0; i < points.length - 1; i++) {
       const p0 = points[i];
       const p1 = points[i + 1];
-      
+
       // Control points
       const cpX1 = p0.x + (p1.x - p0.x) / 2;
       const cpY1 = p0.y;
       const cpX2 = p0.x + (p1.x - p0.x) / 2;
       const cpY2 = p1.y;
-      
+
       path += ` C ${cpX1} ${cpY1}, ${cpX2} ${cpY2}, ${p1.x} ${p1.y}`;
     }
-    
+
     return path;
   }
 
