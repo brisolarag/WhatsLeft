@@ -60,6 +60,13 @@ jobs:
       - name: Deploy with Helm
         run: |
           helm dependency update ${{ env.HELM_CHART_PATH }}
+          
+          # Tenta fazer um rollback caso o deploy anterior tenha falhado e travado o release
+          helm rollback ${{ env.HELM_RELEASE_NAME }} \
+            --kube-apiserver ${{ secrets.KUBE_SERVER }} \
+            --kube-token ${{ secrets.KUBE_TOKEN }} \
+            --kube-insecure-skip-tls-verify || true
+            
           helm upgrade --install ${{ env.HELM_RELEASE_NAME }} ${{ env.HELM_CHART_PATH }} \
             --kube-apiserver ${{ secrets.KUBE_SERVER }} \
             --kube-token ${{ secrets.KUBE_TOKEN }} \
@@ -67,7 +74,7 @@ jobs:
             -f ${{ env.HELM_CHART_PATH }}/values-oke.yaml \
             --set api.image.tag=${{ github.sha }} \
             --set view.image.tag=${{ github.sha }} \
-            --wait --timeout 5m
+            --wait --timeout 5m --atomic
 
   validate-deploy-api:
     runs-on: ubuntu-latest
