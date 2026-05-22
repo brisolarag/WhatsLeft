@@ -46,15 +46,12 @@ jobs:
             ${{ env.OCI_REGISTRY }}/${{ env.OCI_NAMESPACE }}/whatsleft-view:${{ github.sha }}
             ${{ env.OCI_REGISTRY }}/${{ env.OCI_NAMESPACE }}/whatsleft-view:latest
 
-      - name: Set up Kubeconfig
-        run: |
-          mkdir -p ~/.kube
-          echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > ~/.kube/config
-          chmod 600 ~/.kube/config
-
       - name: Deploy with Helm
         run: |
           helm upgrade --install ${{ env.HELM_RELEASE_NAME }} ${{ env.HELM_CHART_PATH }} \
+            --kube-apiserver ${{ secrets.KUBE_SERVER }} \
+            --kube-token ${{ secrets.KUBE_TOKEN }} \
+            --kube-insecure-skip-tls-verify \
             -f ${{ env.HELM_CHART_PATH }}/values-oke.yaml \
             --set api.image.tag=${{ github.sha }} \
             --set view.image.tag=${{ github.sha }} \
