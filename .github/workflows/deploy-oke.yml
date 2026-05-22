@@ -71,12 +71,58 @@ jobs:
     runs-on: ubuntu-latest
     needs: deploy-oke
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Configure kubectl
+        uses: azure/setup-kubectl@v3
+
       - name: Validate API
-        run: echo "TODO - Validate API deployment (e.g. check endpoints or logs)"
+        run: |
+          mkdir -p ~/.kube
+          kubectl config set-cluster oke --server=${{ secrets.KUBE_SERVER }} --insecure-skip-tls-verify=true
+          kubectl config set-credentials github --token=${{ secrets.KUBE_TOKEN }}
+          kubectl config set-context default --cluster=oke --user=github
+          kubectl config use-context default
+          
+          kubectl port-forward svc/${{ env.HELM_RELEASE_NAME }}-api 8080:8080 &
+          sleep 5
+          python infra/validate_health.py http://localhost:8080/health
 
   validate-deploy-view:
     runs-on: ubuntu-latest
     needs: deploy-oke
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Configure kubectl
+        uses: azure/setup-kubectl@v3
+
       - name: Validate View
-        run: echo "TODO - Validate View deployment (e.g. check endpoints or logs)"
+        run: |
+          mkdir -p ~/.kube
+          kubectl config set-cluster oke --server=${{ secrets.KUBE_SERVER }} --insecure-skip-tls-verify=true
+          kubectl config set-credentials github --token=${{ secrets.KUBE_TOKEN }}
+          kubectl config set-context default --cluster=oke --user=github
+          kubectl config use-context default
+          
+          kubectl port-forward svc/${{ env.HELM_RELEASE_NAME }}-view 8081:80 &
+          sleep 5
+          python infra/validate_ui.py http://localhost:8081
