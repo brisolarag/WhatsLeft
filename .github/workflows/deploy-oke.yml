@@ -2,12 +2,11 @@ name: Deploy to OKE
 
 on:
   workflow_run:
-    workflows: ["Tests"]
+    workflows: ["Build and Test"]
     types:
       - completed
     branches:
       - main
-      - master
 
 env:
   OCI_REGISTRY: sa-saopaulo-1.ocir.io
