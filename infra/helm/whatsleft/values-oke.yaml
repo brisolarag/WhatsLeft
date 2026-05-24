@@ -26,3 +26,26 @@ ingress:
   enabled: false
   # annotations:
   #   kubernetes.io/ingress.class: nginx
+
+# Configuração mínima do Elasticsearch para economizar recursos no OKE
+elasticsearch:
+  master:
+    replicaCount: 1
+  coordinating:
+    replicaCount: 0
+  data:
+    replicaCount: 0
+  ingest:
+    replicaCount: 0
+  # Aumenta o tempo de tolerância para o pull da imagem caso haja limitação do Docker Hub
+  volumeClaimTemplate:
+    accessModes: [ "ReadWriteOnce" ]
+    resources:
+      requests:
+        storage: 2Gi
+
+kibana:
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "512Mi"
